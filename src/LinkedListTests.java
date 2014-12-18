@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
-public class LinkedListsTests {
+public class LinkedListTests {
 
 	@Test
 	public void canAdd() {
