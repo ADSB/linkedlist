@@ -88,7 +88,7 @@ public class LinkedListTests {
 	}
 
 	@Test
-	public void canRemove() {
+	public void canIterateRemove() {
 		MyLinkedList<String> list = new MyLinkedList<String>();
 		list.add("a");
 		list.add("bc");
@@ -153,6 +153,60 @@ public class LinkedListTests {
 		iterator.next();
 		iterator.remove();
 		iterator.remove();
+	}
+
+	@Test
+	public void canClearList() {
+		MyLinkedList<String> list = new MyLinkedList<String>();
+		list.add("1");
+		list.add("2");
+		list.add("3");
+		list.add("4");
+		list.add("5");
+		list.clear();
+		assertArrayEquals(list.toArray(), new String[] {});
+	}
+
+	@Test
+	public void canRemove() {
+		MyLinkedList<String> list = new MyLinkedList<String>();
+		list.add("1");
+		list.add("2");
+		list.add("3");
+		list.add("4");
+		list.add("5");
+		assertTrue(list.remove("3"));
+		assertFalse(list.remove("3"));
+		assertFalse(list.remove("6"));
+		assertArrayEquals(list.toArray(), new String[] {
+			"1", "2", "4", "5"
+		});
+	}
+
+	@Test
+	public void canRemoveWhileEmpty() {
+		MyLinkedList<String> list = new MyLinkedList<String>();
+		assertFalse(list.remove("3"));
+		assertArrayEquals(list.toArray(), new String[] {});
+	}
+
+	@Test
+	public void canClearListWhileEmpty() {
+		MyLinkedList<String> list = new MyLinkedList<String>();
+		list.clear();
+		assertArrayEquals(list.toArray(), new String[] {});
+	}
+
+	@Test
+	public void createsIteratorWhileEmpty() {
+		MyLinkedList<String> list = new MyLinkedList<String>();
+		Iterator<String> iterator = list.iterator();
+	}
+
+	@Test
+	public void canConfirmContainsWhileEmpty() {
+		MyLinkedList<String> list = new MyLinkedList<String>();
+		assertFalse(list.contains("1"));
 	}
 
 }

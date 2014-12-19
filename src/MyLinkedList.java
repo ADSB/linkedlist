@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class MyLinkedList<E> implements LinkedListI<E>, Iterable<E> {
+public class MyLinkedList<E> implements LinkedListI<E> {
 
 	protected ListNodeI<E> _head;
 
@@ -65,11 +65,13 @@ public class MyLinkedList<E> implements LinkedListI<E>, Iterable<E> {
 	public E[] toArray() {
 		ArrayList<E> list = new ArrayList<E>();
 		ListNodeI<E> node = _head;
-		while (((SimpleNode)(node)).hasNext()) {
+		if (node != null) {
+			while (((SimpleNode) (node)).hasNext()) {
+				list.add(node.getValue());
+				node = node.getNext();
+			}
 			list.add(node.getValue());
-			node = node.getNext();
 		}
-		list.add(node.getValue());
 		return list.toArray((E[])(new Object[] {}));
 	}
 
@@ -83,13 +85,16 @@ public class MyLinkedList<E> implements LinkedListI<E>, Iterable<E> {
 	@Override
 	public boolean contains(E val) {
 		ListNodeI<E> node = _head;
-		while (((SimpleNode)(node)).hasNext()) {
-			if (val.equals(node.getValue())) {
-				return true;
+		if (node != null) {
+			while (((SimpleNode) (node)).hasNext()) {
+				if (val.equals(node.getValue())) {
+					return true;
+				}
+				node = node.getNext();
 			}
-			node = node.getNext();
+			return val.equals(node.getValue());
 		}
-		return val.equals(node.getValue());
+		return false;
 	}
 
 	/**
@@ -119,6 +124,33 @@ public class MyLinkedList<E> implements LinkedListI<E>, Iterable<E> {
 			count++;
 		}
 		return count;
+	}
+
+	/**
+	 * Remove value from list.
+	 *
+	 * @param val to remove
+	 *
+	 * @return whether value was removed
+	 */
+	@Override
+	public boolean remove(E val) {
+		Iterator<E> iterator = iterator();
+		while (iterator.hasNext()) {
+			if (iterator.next().equals(val)) {
+				iterator.remove();
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Clear all nodes from list.
+	 */
+	@Override
+	public void clear() {
+		_head = null;
 	}
 
 	@Override

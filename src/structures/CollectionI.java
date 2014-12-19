@@ -5,7 +5,7 @@ package structures;
  *
  * @param <V>
  */
-public interface CollectionI<V> {
+public interface CollectionI<V> extends Iterable<V> {
 	
 	
 
@@ -39,4 +39,15 @@ public interface CollectionI<V> {
 	 */
 	public int size();
 
+	/**
+	 * Remove an element from the collection
+	 * @param val remove this element
+	 * @return true if element was present and removed
+	 */
+	public boolean remove(V val);
+
+	/**
+	 * Remove all items
+	 */
+	public void clear();
 }
