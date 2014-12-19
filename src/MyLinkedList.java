@@ -4,6 +4,7 @@ import structures.SimpleNode;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class MyLinkedList<E> implements LinkedListI<E>, Iterable<E> {
 
@@ -102,18 +103,26 @@ public class MyLinkedList<E> implements LinkedListI<E>, Iterable<E> {
 
 			@Override
 			public E next() {
-				previous = current;
-				current = current.getNext();
-				return current.getValue();
+				if (((SimpleNode)(current)).hasNext()) {
+					previous = current;
+					current = current.getNext();
+					return current.getValue();
+				}
+				else {
+					throw new NoSuchElementException();
+				}
 			}
 
 			@Override
 			public void remove() {
-				if (current == _head) {
-					_head = current.getNext();
+				if (previous.getNext() == current) {
+					if (current == _head) {
+						_head = current.getNext();
+					}
+					previous.setNext(current.getNext());
 				}
 				else {
-					previous.setNext(current.getNext());
+					throw new NoSuchElementException();
 				}
 			}
 		};

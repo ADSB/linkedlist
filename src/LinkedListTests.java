@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
@@ -133,6 +134,25 @@ public class LinkedListTests {
 		}
 		assertEquals(listcat, "abcdefghijklmno");
 		assertEquals(othercat, "123456789101112131415");
+	}
+
+	@Test(expected = NoSuchElementException.class)
+	public void throwsNoSuchElementException() {
+		MyLinkedList<String> list = new MyLinkedList<String>();
+		list.add("1");
+		Iterator<String> iterator = list.iterator();
+		iterator.next();
+		iterator.next();
+	}
+
+	@Test(expected = NoSuchElementException.class)
+	public void throwsNoSuchElementExceptionUponRemoval() {
+		MyLinkedList<String> list = new MyLinkedList<String>();
+		list.add("1");
+		Iterator<String> iterator = list.iterator();
+		iterator.next();
+		iterator.remove();
+		iterator.remove();
 	}
 
 }
