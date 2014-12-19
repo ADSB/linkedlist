@@ -15,6 +15,11 @@ public class MyLinkedList<E> implements LinkedListI<E>, Iterable<E> {
 		return _head;
 	}
 
+	/**
+	 * Append value to list tail.
+	 *
+	 * @param value to add
+	 */
 	@Override
 	public void append(E value) {
 		if (_head != null) {
@@ -29,6 +34,11 @@ public class MyLinkedList<E> implements LinkedListI<E>, Iterable<E> {
 		}
 	}
 
+	/**
+	 * Prepend value to list head.
+	 *
+	 * @param value to add
+	 */
 	@Override
 	public void prepend(E value) {
 		SimpleNode<E> first = new SimpleNode<E>(value);
@@ -36,11 +46,21 @@ public class MyLinkedList<E> implements LinkedListI<E>, Iterable<E> {
 		_head = first;
 	}
 
+	/**
+	 * Append value to list tail.
+	 *
+	 * @param val to add
+	 */
 	@Override
 	public void add(E val) {
 		append(val);
 	}
 
+	/**
+	 * Convert list to array.
+	 *
+	 * @return array of values
+	 */
 	@Override
 	public E[] toArray() {
 		ArrayList<E> list = new ArrayList<E>();
@@ -53,6 +73,13 @@ public class MyLinkedList<E> implements LinkedListI<E>, Iterable<E> {
 		return list.toArray((E[])(new Object[] {}));
 	}
 
+	/**
+	 * Determine whether value is present in list.
+	 *
+	 * @param val to search for
+	 *
+	 * @return whether value is present
+	 */
 	@Override
 	public boolean contains(E val) {
 		ListNodeI<E> node = _head;
@@ -65,11 +92,21 @@ public class MyLinkedList<E> implements LinkedListI<E>, Iterable<E> {
 		return val.equals(node.getValue());
 	}
 
+	/**
+	 * Determine whether list is empty.
+	 *
+	 * @return list is empty
+	 */
 	@Override
 	public boolean isEmpty() {
 		return _head == null;
 	}
 
+	/**
+	 * Get size of list.
+	 *
+	 * @return size of the list
+	 */
 	@Override
 	public int size() {
 		int count = 0;
@@ -96,11 +133,21 @@ public class MyLinkedList<E> implements LinkedListI<E>, Iterable<E> {
 				current.setNext(_head);
 			}
 
+			/**
+			 * Determine whether iterator has an instantiated next node.
+			 *
+			 * @return next node is not null
+			 */
 			@Override
 			public boolean hasNext() {
 				return ((SimpleNode)(current)).hasNext();
 			}
 
+			/**
+			 * Get value of next node.
+			 *
+			 * @return next value
+			 */
 			@Override
 			public E next() {
 				if (((SimpleNode)(current)).hasNext()) {
@@ -113,6 +160,10 @@ public class MyLinkedList<E> implements LinkedListI<E>, Iterable<E> {
 				}
 			}
 
+
+			/**
+			 * Remove current node.
+			 */
 			@Override
 			public void remove() {
 				if (previous.getNext() == current) {
