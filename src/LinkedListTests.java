@@ -62,13 +62,16 @@ public class LinkedListTests {
 	public void canGetSize() {
 		MyLinkedList<String> list = new MyLinkedList<String>();
 		assertEquals(list.size(), 0);
+		list.loop();
 		list.add("1");
 		list.add("1");
 		list.add("1");
 		list.add("1");
 		list.add("1");
+		list.loop();
 		assertEquals(list.size(), 5);
 		list.add("1");
+		list.loop();
 		assertEquals(list.size(), 6);
 	}
 
@@ -80,6 +83,7 @@ public class LinkedListTests {
 		list.add("def");
 		list.add("ghij");
 		list.add("klmno");
+		list.loop();
 		String cat = "";
 		for (String string: list) {
 			cat += string;

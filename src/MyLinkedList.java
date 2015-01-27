@@ -9,10 +9,16 @@ import java.util.NoSuchElementException;
 public class MyLinkedList<E> implements LinkedListI<E> {
 
 	protected ListNodeI<E> _head;
+	protected ListNodeI<E> _tail;
+	protected boolean _restricted = true;
 
 	@Override
 	public ListNodeI<E> getHead() {
 		return _head;
+	}
+
+	public ListNodeI<E> getTail() {
+		return _tail;
 	}
 
 	/**
@@ -23,14 +29,12 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 	@Override
 	public void append(E value) {
 		if (_head != null) {
-			ListNodeI<E> last = _head;
-			while (((SimpleNode) (last)).hasNext()) {
-				last = last.getNext();
-			}
-			last.setNext(new SimpleNode<E>(value));
+			_tail.setNext(new SimpleNode<E>(value));
+			_tail = _tail.getNext();
 		}
 		else {
 			_head = new SimpleNode<E>(value);
+			_tail = _head;
 		}
 	}
 
@@ -62,17 +66,17 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 	 * @return array of values
 	 */
 	@Override
-	public E[] toArray() {
+	public Object[] toArray() {
 		ArrayList<E> list = new ArrayList<E>();
 		ListNodeI<E> node = _head;
 		if (node != null) {
-			while (((SimpleNode) (node)).hasNext()) {
+			while (node != _tail) {
 				list.add(node.getValue());
 				node = node.getNext();
 			}
 			list.add(node.getValue());
 		}
-		return list.toArray((E[])(new Object[] {}));
+		return list.toArray();
 	}
 
 	/**
@@ -86,7 +90,7 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 	public boolean contains(E val) {
 		ListNodeI<E> node = _head;
 		if (node != null) {
-			while (((SimpleNode) (node)).hasNext()) {
+			while (node != _tail) {
 				if (val.equals(node.getValue())) {
 					return true;
 				}
@@ -117,7 +121,7 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 		int count = 0;
 		ListNodeI<E> last = _head;
 		if (_head != null) {
-			while (((SimpleNode)(last)).hasNext()) {
+			while (last != _tail) {
 				count++;
 				last = last.getNext();
 			}
@@ -151,6 +155,17 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 	@Override
 	public void clear() {
 		_head = null;
+		_tail = null;
+	}
+
+	public void loop() {
+		if (_tail != null) {
+			_tail.setNext(_head);
+		}
+	}
+
+	public void restrictIterator(boolean restrict) {
+		_restricted = restrict;
 	}
 
 	@Override
@@ -172,7 +187,7 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 			 */
 			@Override
 			public boolean hasNext() {
-				return ((SimpleNode)(current)).hasNext();
+				return ((SimpleNode)(current)).hasNext() && (current != _tail | !_restricted);
 			}
 
 			/**
@@ -182,7 +197,7 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 			 */
 			@Override
 			public E next() {
-				if (((SimpleNode)(current)).hasNext()) {
+				if (hasNext()) {
 					previous = current;
 					current = current.getNext();
 					return current.getValue();
@@ -201,6 +216,9 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 				if (previous.getNext() == current) {
 					if (current == _head) {
 						_head = current.getNext();
+					}
+					if (current == _tail) {
+						_tail = previous;
 					}
 					previous.setNext(current.getNext());
 				}
