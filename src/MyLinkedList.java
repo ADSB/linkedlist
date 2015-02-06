@@ -22,7 +22,7 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 	}
 
 	/**
-	 * Append value to list tail.
+	 * Append value to list tail. [O(1)]
 	 *
 	 * @param value to add
 	 */
@@ -39,7 +39,7 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 	}
 
 	/**
-	 * Prepend value to list head.
+	 * Prepend value to list head. [O(1)]
 	 *
 	 * @param value to add
 	 */
@@ -51,7 +51,7 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 	}
 
 	/**
-	 * Append value to list tail.
+	 * Append value to list tail. [O(1)]
 	 *
 	 * @param val to add
 	 */
@@ -61,7 +61,7 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 	}
 
 	/**
-	 * Convert list to array.
+	 * Convert list to array. [O(n)]
 	 *
 	 * @return array of values
 	 */
@@ -80,7 +80,7 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 	}
 
 	/**
-	 * Determine whether value is present in list.
+	 * Determine whether value is present in list. [O(n)]
 	 *
 	 * @param val to search for
 	 *
@@ -102,7 +102,7 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 	}
 
 	/**
-	 * Determine whether list is empty.
+	 * Determine whether list is empty. [O(1)]
 	 *
 	 * @return list is empty
 	 */
@@ -112,7 +112,7 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 	}
 
 	/**
-	 * Get size of list.
+	 * Get size of list. [O(n)]
 	 *
 	 * @return size of the list
 	 */
@@ -131,7 +131,7 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 	}
 
 	/**
-	 * Remove value from list.
+	 * Remove value from list. [O(n)]
 	 *
 	 * @param val to remove
 	 *
@@ -150,7 +150,7 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 	}
 
 	/**
-	 * Clear all nodes from list.
+	 * Clear all nodes from list. [O(1)]
 	 */
 	@Override
 	public void clear() {
@@ -158,12 +158,20 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 		_tail = null;
 	}
 
+	/**
+	 * Make the list a cycle. [O(1)]
+	 */
 	public void loop() {
 		if (_tail != null) {
 			_tail.setNext(_head);
 		}
 	}
 
+	/**
+	 * Set whether the iterator allows cyclic iteration. [O(1)]
+	 *
+	 * @param restrict cycle
+	 */
 	public void restrictIterator(boolean restrict) {
 		_restricted = restrict;
 	}
@@ -181,7 +189,7 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 			}
 
 			/**
-			 * Determine whether iterator has an instantiated next node.
+			 * Determine whether iterator has an instantiated next node. [O(1)]
 			 *
 			 * @return next node is not null
 			 */
@@ -191,7 +199,7 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 			}
 
 			/**
-			 * Get value of next node.
+			 * Get value of next node. [O(1)]
 			 *
 			 * @return next value
 			 */
@@ -209,7 +217,7 @@ public class MyLinkedList<E> implements LinkedListI<E> {
 
 
 			/**
-			 * Remove current node.
+			 * Remove current node. [O(1)]
 			 */
 			@Override
 			public void remove() {
